@@ -9,7 +9,7 @@ RUN composer install --ignore-platform-reqs --no-interaction --no-plugins --no-s
 
 # apache
 FROM php:7.3-apache-stretch
-RUN apt-get update && apt-get install -y zlib1g-dev
+RUN apt-get update && apt-get install -y zlib1g-dev libpq-dev
 RUN docker-php-source extract && docker-php-ext-install pdo pdo_pgsql pcntl zip bcmath && docker-php-source delete
 RUN sed -ri -e 's!/var/www/!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
     sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf && a2enmod rewrite
