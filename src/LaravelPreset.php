@@ -10,6 +10,8 @@ class LaravelPreset
 
     protected $options = [];
 
+    protected $packages = [];
+
     public function __construct($command)
     {
         $this->command = $command;
@@ -27,17 +29,27 @@ class LaravelPreset
 
         // prompt for installing dusk
         if ($this->command->confirm('Are you going to use Laravel Dusk?')) {
-            $this->command->info('installing laravel/dusk dependencies');
+            array_push($this->packages, 'laravel/dusk');
         }
 
         // prompt for installing horizon
         if ($this->command->confirm('Are you going to use Laravel Horizon?')) {
-            $this->command->info('installing laravel/horizon dependencies');
+            array_push($this->packages, 'laravel/horizon');
         }
 
         // promt for installing telescope
         if ($this->command->confirm('Are you going to use Laravel Telescope?')) {
-            $this->command->info('installing laravel/telescope dependencies');
+            array_push($this->packages, 'laravel/telescope');
+        }
+
+        if (is_array($this->packages)) {
+            foreach ($this->packages as $package) {
+                $this->command->info('Installing composer dependency ' . $package);
+                $this->runCommand(sprintf(
+                    'composer require %s',
+                    $package
+                ));
+            }
         }
 
         $this->publishStubs();
@@ -67,5 +79,10 @@ class LaravelPreset
         copy(__DIR__ . '/stubs/.dockerignore', base_path('.dockerignore'));
         copy(__DIR__ . '/stubs/.php_cs', base_path('.php_cs'));
         copy(__DIR__ . '/stubs/phpunit.xml', base_path('phpunit.xml'));
+    }
+
+    private function runCommand($command)
+    {
+        return exec(sprintf('%s 2>&1', $command));
     }
 }
