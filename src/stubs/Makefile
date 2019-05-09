@@ -13,10 +13,14 @@ migrate:
 	docker-compose exec app php artisan migrate
 migrate-fresh:
 	docker-compose exec app php artisan migrate:fresh
+phpcs:
+	./vendor/bin/php-cs-fixer fix --config .php_cs
 phpunit:
 	docker-compose exec app ./vendor/bin/phpunit
 reports:
 	docker-compose exec app ./vendor/bin/phpunit --coverage-html reports
+scale:
+	docker-compose up -d --scale queue=15
 seed:
 	docker-compose exec app php artisan db:seed
 tag:

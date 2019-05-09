@@ -65,5 +65,7 @@ class LaravelPreset
         copy(__DIR__ . '/stubs/apache/000-default.conf', base_path('.docker/000-default.conf'));
         copy(__DIR__ . '/stubs/Makefile', base_path('Makefile'));
         copy(__DIR__ . '/stubs/.dockerignore', base_path('.dockerignore'));
+        copy(__DIR__ . '/stubs/.php_cs', base_path('.php_cs'));
+        copy(__DIR__ . '/stubs/phpunit.xml', base_path('phpunit.xml'));
     }
 }
