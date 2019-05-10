@@ -11,14 +11,6 @@ The overall goal is to make it as easy to ship a project with Laravel using Dock
 
 Taking years of experience shipping PHP applications (both Craft CMS and Laravel) with Docker, this is a combination of lessons learned in one package.
 
-### Dockerfile
-
-Running the preset command (`php artisan preset jasonmccallister`) will prompt you on the type of database you are going to use on the project. The goal here is to use the same Dockerfile for local development, CI/CD, and deploying a production image. By default only "production" OS packages are installed (xdebug can be installed but is not enabled by default).
-
-### docker-compose.yaml
-
-To make development with Docker easier locally, we use the `docker-compose.yaml` to scaffold the creation of the database, queue, and redis instance. Docker Compose makes it really easy to spin all of your services up with one command.
-
 ## Installation
 
 You can install the package via composer:
@@ -49,10 +41,41 @@ Now all that is left is to run the following command:
 make up
 ```
 
-The preset will also install a `Makefile` with a lot of helpful commands. The only two you really need to know to get started are:
+### Docker
 
-1. `make up` runs the command `docker-compose up -d`
-2. `make down` runs the command `docker-compose down`
+Running the preset command (`php artisan preset jasonmccallister`) will prompt you on the type of database you are going to use on the project. This will setup the Dockerfile and docker-compose file with the correct database dependencies.
+
+#### Dockerfile
+
+The goal is to use the same `Dockerfile` for local development, CI/CD, and deploying a production image. By default only "production" OS packages are installed.
+
+> PHP Extensions like xdebug can be installed but is not enabled by default, there is a `Makefile` command for that!
+
+### docker-compose.yaml
+
+To make development with Docker easier locally, we use the `docker-compose.yaml` to scaffold the creation of the database, queue, and redis instance. Docker Compose makes it really easy to spin all of your services up with one command.
+
+### Makefile
+
+The preset will also install a `Makefile` with a lot of helpful commands. Here is a list of available commands:
+
+- `make build` will build an image
+- `make composer` will install composer dependencies inside of a throw away docker container and copy to your local machine
+- `make down` will stop, or shutdown, the projects services
+- `make logs` will show all of your serivces logs with the `--follow` flag
+- `make migrate` will run `php artisan migrate` inside of the docker container
+- `make migrate:fresh` will run `pap artisan migrate` inside of the docker container
+- `make phpcs` will apply `.php_cs` fixes on the `app` directory
+- `make phpunit` runs phpunit inside of the container, useful for CI/CD environments
+- `make reports` runs phpunit with HTML code coverage inside the container
+- `make scale` will scale your queue container up to 15 containers. Useful for testing concurrency of background jobs and queues locally
+- `make seed` runs `db:seed` inside of your container
+- `make ssh` will "ssh" you into the app container with a bash shell
+- `make ssh-queue` the same as the `ssh` command but will give you a bash shell in the queue container
+- `make tag` will tag your docker image
+- `make testdox` runs phpunit with the `--testdox` flag for prettier output
+- `make up` is used to start all of your services
+- `make xdebug` will install the xdebug PHP Extension inside of your app container
 
 ### Security
 
