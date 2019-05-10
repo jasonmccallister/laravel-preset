@@ -23,6 +23,10 @@ scale:
 	docker-compose up -d --scale queue=15
 seed:
 	docker-compose exec app php artisan db:seed
+ssh:
+	docker-compose exec app bash
+ssh-queue:
+	docker-compose exec queue bash
 tag:
 	docker tag "$(IMAGE):$(TAG)" "$(IMAGE):$(TAG)"
 testdox:
