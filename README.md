@@ -1,7 +1,7 @@
 # Laravel Presets for Docker, PHPCS, and PHPUnit
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/jasonmccallister/laravel-presets.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-presets)
-[![Total Downloads](https://img.shields.io/packagist/dt/jasonmccallister/laravel-presets.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-presets)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/jasonmccallister/laravel-preset.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-preset)
+[![Total Downloads](https://img.shields.io/packagist/dt/jasonmccallister/laravel-preset.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-preset)
 
 This is where your description should go. Try and limit it to a paragraph or two.
 
