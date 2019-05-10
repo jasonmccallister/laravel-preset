@@ -27,14 +27,6 @@ php artisan preset jasonmccallister
 
 The preset will prompt you to install some recommended first-party packages.
 
-### Packages
-
-1. [Laravel Dusk](https://github.com/laravel/dusk)
-1. [Laravel Horizon](https://github.com/laravel/horizon)
-1. [Laravel Telescope](https://github.com/laravel/telescope)
-
-> Note: if you select to install Horizon, the preset will also prompt you to use the horizon command instead of `queue:work`. Again this is optional but recommended when using Horizon.
-
 Now all that is left is to run the following command:
 
 ```bash
@@ -62,6 +54,14 @@ There are a few things of note with this file:
 - The volumes are tagged with `:cache` to [improve Docker's performance with macOS](https://docs.docker.com/docker-for-mac/osxfs-caching/#cached) specifcisally but has no imapct on other operating systems
 - There are lines commented out if you are using Laravel Passport
 - No image is specified for the app and queue containers, this will default to the root folders name. Instead the file will look at the Dockerfile and build the image if it cannot find it locally
+
+#### Packages
+
+1. [Laravel Dusk](https://github.com/laravel/dusk)
+1. [Laravel Horizon](https://github.com/laravel/horizon)
+1. [Laravel Telescope](https://github.com/laravel/telescope)
+
+> Note: if you select to install Horizon, the preset will also prompt you to use the horizon command instead of `queue:work`. Again this is optional but recommended when using Horizon.
 
 #### Makefile
 
