@@ -25,8 +25,6 @@ composer require --dev jasonmccallister/laravel-preset
 php artisan preset jasonmccallister
 ```
 
-The preset will prompt you to install some recommended first-party packages.
-
 Now all that is left is to run the following command:
 
 ```bash
@@ -56,6 +54,8 @@ There are a few things of note with this file:
 - No image is specified for the app and queue containers, this will default to the root folders name. Instead the file will look at the Dockerfile and build the image if it cannot find it locally
 
 #### Packages
+
+The preset will prompt you to install some recommended first-party packages.
 
 1. [Laravel Dusk](https://github.com/laravel/dusk)
 1. [Laravel Horizon](https://github.com/laravel/horizon)
