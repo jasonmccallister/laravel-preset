@@ -33,7 +33,15 @@ composer require --dev jasonmccallister/laravel-preset
 php artisan preset jasonmccallister
 ```
 
-> The preset will prompt you to install some recommended first-party packages, all of which are optional.
+The preset will prompt you to install some recommended first-party packages.
+
+### Packages
+
+1. [Laravel Dusk](https://github.com/laravel/dusk)
+1. [Laravel Horizon](https://github.com/laravel/horizon)
+1. [Laravel Telescope](https://github.com/laravel/telescope)
+
+> Note: if you select to install Horizon, the preset will also prompt you to use the horizon command instead of `queue:work`. Again this is optional but recommended when using Horizon.
 
 Now all that is left is to run the following command:
 
