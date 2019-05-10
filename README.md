@@ -45,17 +45,25 @@ make up
 
 Running the preset command (`php artisan preset jasonmccallister`) will prompt you on the type of database you are going to use on the project. This will setup the Dockerfile and docker-compose file with the correct database dependencies.
 
+There is a `.dockerignore` that will exclude the `vendor` and `node_modules` from the Docker Build Context. This is included to [improve the build times for Docker](https://docs.docker.com/engine/reference/builder/#dockerignore-file).
+
 #### Dockerfile
 
 The goal is to use the same `Dockerfile` for local development, CI/CD, and deploying a production image. By default only "production" OS packages are installed.
 
-> PHP Extensions like xdebug can be installed but is not enabled by default, there is a `Makefile` command for that!
+> PHP Extensions like xdebug can be installed but are not enabled by default, there is a `Makefile` command for that!
 
-### docker-compose.yaml
+#### docker-compose.yaml
 
 To make development with Docker easier locally, we use the `docker-compose.yaml` to scaffold the creation of the database, queue, and redis instance. Docker Compose makes it really easy to spin all of your services up with one command.
 
-### Makefile
+There are a few things of note with this file:
+
+- The volumes are tagged with `:cache` to [improve Docker's performance with macOS](https://docs.docker.com/docker-for-mac/osxfs-caching/#cached) specifcisally but has no imapct on other operating systems
+- There are lines commented out if you are using Laravel Passport
+- No image is specified for the app and queue containers, this will default to the root folders name. Instead the file will look at the Dockerfile and build the image if it cannot find it locally
+
+#### Makefile
 
 The preset will also install a `Makefile` with a lot of helpful commands. Here is a list of available commands:
 
