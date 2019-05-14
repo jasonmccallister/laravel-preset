@@ -12,7 +12,9 @@ class LaravelPreset
 
     protected $options = [];
 
-    protected $packages = ['friendsofphp/php-cs-fixer'];
+    protected $devPackages = ['friendsofphp/php-cs-fixer'];
+
+    protected $packages = [];
 
     public function __construct($command)
     {
@@ -31,7 +33,7 @@ class LaravelPreset
 
         // prompt for installing dusk
         if ($this->command->confirm('Are you going to use Laravel Dusk?')) {
-            array_push($this->packages, 'laravel/dusk');
+            array_push($this->devPackages, 'laravel/dusk');
         }
 
         // prompt for installing horizon
@@ -44,15 +46,34 @@ class LaravelPreset
             array_push($this->packages, 'laravel/telescope');
         }
 
-        foreach ($this->packages as $package) {
-            $this->command->info(' Installing ' . $package . '...');
-            $this->runCommand(sprintf(
-                'composer require %s',
-                $package
-            ));
+        // prompt for laravel-uuid-as-id
+        if ($this->command->confirm('Are you going to use UUIDs as IDs?')) {
+            array_push($this->packages, 'jasonmccallister/laravel-uuid-as-id');
         }
 
-        $this->command->info(' Packages have been installed, you may need to run additional steps...');
+        $devPackages = collect($this->devPackages)->implode(' ');
+        $this->command->info(' Development packages: ' . $devPackages);
+
+        if ($this->command->confirm('The above packages will be required for dev, do you wish to proceed?')) {
+            $this->command->info(' Requiring ' . $devPackages . '...');
+
+            $this->runCommand(sprintf('composer require --dev %s', $devPackages));
+
+            $this->command->info(' Success!');
+        }
+
+        $packages = collect($this->packages)->implode(' ');
+        $this->command->info(' Packages: ' . $packages);
+
+        if ($this->command->confirm('The above packages will be required, do you wish to proceed?')) {
+            $this->command->info(' Requiring ' . $packages . '...');
+
+            $this->runCommand(sprintf('composer require %s', $packages));
+
+            $this->command->info(' Success!');
+        }
+
+        $this->command->info(' Packages have been required, you may need to run additional steps...');
 
         $this->publishStubs();
         $this->updateDotEnv('.env');
@@ -69,6 +90,8 @@ class LaravelPreset
 
         if (Arr::has($this->packages, 'laravel/horizon')) {
             $useHorizon = $this->command->confirm(' Use horizon instead of queue:work?');
+        } else {
+            $useHorizon = false;
         }
 
         switch ($this->options['database']) {
