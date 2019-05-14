@@ -11,6 +11,8 @@ logs:
 	docker-compose logs -f
 migrate:
 	docker-compose exec app php artisan migrate
+model:
+	docker-compose exec app php artisan make:model
 migrate-fresh:
 	docker-compose exec app php artisan migrate:fresh
 phpcs:
@@ -31,6 +33,8 @@ tag:
 	docker tag "$(IMAGE):$(TAG)" "$(IMAGE):$(TAG)"
 testdox:
 	docker-compose exec app ./vendor/bin/phpunit --testdox
+tinker:
+	docker-compose exec app php artisan tinker
 up:
 	docker-compose up -d
 xdebug:
