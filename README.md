@@ -3,9 +3,9 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jasonmccallister/laravel-preset.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-preset)
 [![Total Downloads](https://img.shields.io/packagist/dt/jasonmccallister/laravel-preset.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-preset)
 
-This preset will install and prompt you install Laravel official packages like Horizon and Telescope. This also includes a `Makefile` for helpful commands for local development and continous integration.
+This preset will install and prompt you to install Laravel official packages like Horizon and Telescope. This also includes a `Makefile` for helpful commands for local development and continous integration.
 
-The overall goal is to make it as easy to ship a project with Laravel using Docker, CI/CD, and PHPUnit testing.
+The overall goal is to make it as easy as possible to ship a project with Laravel using Docker, CI/CD, and PHPUnit testing.
 
 ### Docker
 
@@ -49,8 +49,8 @@ To make development with Docker easier locally, we use the `docker-compose.yaml`
 
 There are a few things of note with this file:
 
-- The volumes are tagged with `:cache` to [improve Docker's performance with macOS](https://docs.docker.com/docker-for-mac/osxfs-caching/#cached) specifcisally but has no imapct on other operating systems
-- There are lines commented out if you are using Laravel Passport
+- The volumes are tagged with `:cache` to [improve Docker's performance with macOS](https://docs.docker.com/docker-for-mac/osxfs-caching/#cached) specifically but has no impact on other operating systems
+- There are lines commented out if you are not using Laravel Passport
 - No image is specified for the app and queue containers, this will default to the root folders name. Instead the file will look at the Dockerfile and build the image if it cannot find it locally
 
 #### Packages
