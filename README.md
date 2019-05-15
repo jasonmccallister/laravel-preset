@@ -25,6 +25,8 @@ composer require --dev jasonmccallister/laravel-preset
 php artisan preset jasonmccallister
 ```
 
+Follow the prompts on which database to use and what packages to include in the project.
+
 Now all that is left is to run the following command:
 
 ```bash
@@ -58,8 +60,10 @@ There are a few things of note with this file:
 The preset will prompt you to install some recommended first-party packages.
 
 1. [Laravel Dusk](https://github.com/laravel/dusk)
-1. [Laravel Horizon](https://github.com/laravel/horizon)
-1. [Laravel Telescope](https://github.com/laravel/telescope)
+2. [Laravel Horizon](https://github.com/laravel/horizon)
+3. [Laravel Telescope](https://github.com/laravel/telescope)
+4. [Laravel Scout](https://github.com/laravel/scout)
+5. [Laravel Socialite](https://github.com/laravel/socialite)
 
 > Note: if you select to install Horizon, the preset will also prompt you to use the horizon command instead of `queue:work`. Again this is optional but recommended when using Horizon.
 
@@ -81,6 +85,7 @@ The preset will also install a `Makefile` with a lot of helpful commands. Here i
 - `make ssh` will "ssh" you into the app container with a bash shell
 - `make ssh-queue` the same as the `ssh` command but will give you a bash shell in the queue container
 - `make tag` will tag your docker image
+- `make tinker` runs `php artisan tinker` inside the app container
 - `make testdox` runs phpunit with the `--testdox` flag for prettier output
 - `make up` is used to start all of your services
 - `make xdebug` will install the xdebug PHP Extension inside of your app container
