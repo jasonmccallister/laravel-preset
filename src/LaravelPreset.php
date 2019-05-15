@@ -46,6 +46,16 @@ class LaravelPreset
             array_push($this->packages, 'laravel/telescope');
         }
 
+        // promt for installing socialite
+        if ($this->command->confirm('Are you going to use Laravel Socialite?')) {
+            array_push($this->packages, 'laravel/socialite');
+        }
+
+        // promt for installing scout
+        if ($this->command->confirm('Are you going to use Laravel Scout?')) {
+            array_push($this->packages, 'laravel/scout');
+        }
+
         // prompt for laravel-uuid-as-id
         if ($this->command->confirm('Are you going to use UUIDs as IDs?')) {
             array_push($this->packages, 'jasonmccallister/laravel-uuid-as-id');
