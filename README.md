@@ -74,6 +74,7 @@ The preset will also install a `Makefile` with a lot of helpful commands. Here i
 - `make build` will build an image
 - `make composer` will install composer dependencies inside of a throw away docker container and copy to your local machine
 - `make down` will stop, or shutdown, the projects services
+- `make horizon` will run `php artisan horizon:install`
 - `make logs` will show all of your serivces logs with the `--follow` flag
 - `make migrate` will run `php artisan migrate` inside of the docker container
 - `make migrate:fresh` will run `pap artisan migrate` inside of the docker container
@@ -86,6 +87,7 @@ The preset will also install a `Makefile` with a lot of helpful commands. Here i
 - `make ssh-queue` the same as the `ssh` command but will give you a bash shell in the queue container
 - `make tag` will tag your docker image
 - `make tinker` runs `php artisan tinker` inside the app container
+- `make telescope` will run `php artisan telescope:install`
 - `make testdox` runs phpunit with the `--testdox` flag for prettier output
 - `make up` is used to start all of your services
 - `make xdebug` will install the xdebug PHP Extension inside of your app container
