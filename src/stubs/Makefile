@@ -7,6 +7,8 @@ composer:
 	docker run --interactive --tty --volume $(PWD):/app composer install --ignore-platform-reqs --no-interaction --no-plugins --prefer-dist
 down:
 	docker-compose down
+horizon:
+	docker-compose exec app php artisan horizon:install
 logs:
 	docker-compose logs -f
 migrate:
@@ -31,6 +33,8 @@ ssh-queue:
 	docker-compose exec queue bash
 tag:
 	docker tag "$(IMAGE):$(TAG)" "$(IMAGE):$(TAG)"
+telescope:
+	docker-compose exec app php artisan telescope:install
 testdox:
 	docker-compose exec app ./vendor/bin/phpunit --testdox
 tinker:

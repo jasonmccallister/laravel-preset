@@ -5,6 +5,7 @@ namespace JasonMcCallister\LaravelPreset;
 use Illuminate\Support\Arr;
 use Illuminate\Filesystem\Filesystem;
 use sixlive\DotenvEditor\DotenvEditor;
+use Illuminate\Support\Facades\Log;
 
 class LaravelPreset
 {
@@ -15,6 +16,8 @@ class LaravelPreset
     protected $devPackages = ['friendsofphp/php-cs-fixer'];
 
     protected $packages = [];
+
+    protected $useHorizon = false;
 
     public function __construct($command)
     {
@@ -38,6 +41,8 @@ class LaravelPreset
 
         // prompt for installing horizon
         if ($this->command->confirm('Are you going to use Laravel Horizon?')) {
+            $this->useHorizon = $this->command->confirm('Use horizon instead of queue:work?');
+
             array_push($this->packages, 'laravel/horizon');
         }
 
@@ -98,15 +103,9 @@ class LaravelPreset
             }
         });
 
-        if (Arr::has($this->packages, 'laravel/horizon')) {
-            $useHorizon = $this->command->confirm(' Use horizon instead of queue:work?');
-        } else {
-            $useHorizon = false;
-        }
-
         switch ($this->options['database']) {
             case 'PostgreSQL':
-                if ($useHorizon) {
+                if ($this->useHorizon) {
                     copy(__DIR__ . '/stubs/postgres/docker-compose-horizon.yaml', base_path('docker-compose.yaml'));
                 } else {
                     copy(__DIR__ . '/stubs/postgres/docker-compose.yaml', base_path('docker-compose.yaml'));
@@ -114,7 +113,7 @@ class LaravelPreset
                 copy(__DIR__ . '/stubs/postgres/Dockerfile', base_path('Dockerfile'));
                 break;
             default:
-                if ($useHorizon) {
+                if ($this->useHorizon) {
                     copy(__DIR__ . '/stubs/mysql/docker-compose-horizon.yaml', base_path('docker-compose.yaml'));
                 } else {
                     copy(__DIR__ . '/stubs/mysql/docker-compose.yaml', base_path('docker-compose.yaml'));
@@ -130,7 +129,7 @@ class LaravelPreset
         copy(__DIR__ . '/stubs/phpunit.xml', base_path('phpunit.xml'));
     }
 
-    protected function updateDotEnv(string $file)
+    protected function updateDotEnv(string $file, bool $copyFile = false)
     {
         $editor = new DotenvEditor;
         $editor->load(base_path($file));
