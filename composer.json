@@ -9,7 +9,6 @@
         "role": "Developer"
     }],
     "require": {
-        "laravel/framework": "^5.8",
         "sixlive/dotenv-editor": "^1.2"
     },
     "autoload": {
@@ -23,5 +22,8 @@
                 "JasonMcCallister\\LaravelPreset\\LaravelPresetServiceProvider"
             ]
         }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.8"
     }
 }
