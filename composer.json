@@ -1,5 +1,5 @@
 {
-    "name": "jasonmccallister/laravel-preset",
+    "name": "mccallister/laravel-preset",
     "description": "Presets for Laravel applications with Docker, PHPCS, PHPUnit, and etc.",
     "license": "MIT",
     "authors": [{
@@ -13,13 +13,13 @@
     },
     "autoload": {
         "psr-4": {
-            "JasonMcCallister\\LaravelPreset\\": "src"
+            "McCallister\\LaravelPreset\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "JasonMcCallister\\LaravelPreset\\LaravelPresetServiceProvider"
+                "McCallister\\LaravelPreset\\LaravelPresetServiceProvider"
             ]
         }
     },

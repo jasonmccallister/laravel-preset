@@ -1,13 +1,11 @@
 <?php
 
-namespace JasonMcCallister\LaravelPreset;
+namespace McCallister\LaravelPreset;
 
-use Illuminate\Support\Arr;
 use Illuminate\Filesystem\Filesystem;
 use sixlive\DotenvEditor\DotenvEditor;
-use Illuminate\Support\Facades\Log;
 
-class LaravelPreset
+class Preset
 {
     protected $command;
 
@@ -61,21 +59,7 @@ class LaravelPreset
             array_push($this->packages, 'laravel/scout');
         }
 
-        // prompt for laravel-uuid-as-id
-        if ($this->command->confirm('Are you going to use UUIDs as IDs?')) {
-            array_push($this->packages, 'jasonmccallister/laravel-uuid-as-id');
-        }
-
-        $devPackages = collect($this->devPackages)->implode(' ');
-        $this->command->info(' Development packages: ' . $devPackages);
-
-        if ($this->command->confirm('The above packages will be required for dev, do you wish to proceed?')) {
-            $this->command->info(' Requiring ' . $devPackages . '...');
-
-            $this->runCommand(sprintf('composer require --dev %s', $devPackages));
-
-            $this->command->info(' Success!');
-        }
+        $this->requireDevPackages();
 
         $packages = collect($this->packages)->implode(' ');
         $this->command->info(' Packages: ' . $packages);
@@ -93,6 +77,21 @@ class LaravelPreset
         $this->publishStubs();
         $this->updateDotEnv('.env');
         $this->updateDotEnv('.env.example');
+    }
+
+    protected function requireDevPackages()
+    {
+        $packages = collect($this->devPackages)->implode(' ');
+
+        $this->command->info(" Development Packages: \n" . $packages);
+
+        if ($this->command->confirm('The above packages will be required for dev, do you wish to proceed?')) {
+            $this->command->info(' Requiring ' . $packages . '...');
+
+            $this->runCommand(sprintf('composer require --dev %s', $packages));
+
+            $this->command->info(' Success!');
+        }
     }
 
     protected function publishStubs()

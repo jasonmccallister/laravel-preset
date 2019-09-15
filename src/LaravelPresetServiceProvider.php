@@ -1,17 +1,17 @@
 <?php
 
-namespace JasonMcCallister\LaravelPreset;
+namespace McCallister\LaravelPreset;
 
+use McCallister\LaravelPreset\Preset;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Console\PresetCommand;
-use JasonMcCallister\LaravelPreset\LaravelPreset;
 
 class LaravelPresetServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        PresetCommand::macro('jasonmccallister', function ($command) {
-            LaravelPreset::install($command);
+        PresetCommand::macro('mccallister', function ($command) {
+            Preset::install($command);
         });
     }
 }

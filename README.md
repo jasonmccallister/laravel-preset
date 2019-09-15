@@ -3,9 +3,15 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jasonmccallister/laravel-preset.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-preset)
 [![Total Downloads](https://img.shields.io/packagist/dt/jasonmccallister/laravel-preset.svg?style=flat-square)](https://packagist.org/packages/jasonmccallister/laravel-preset)
 
-This preset will install and prompt you to install Laravel official packages like Horizon and Telescope. This also includes a `Makefile` for helpful commands for local development and continous integration.
+This preset will install and prompt you to install Laravel official packages (e.g. Horizon and Telescope). This presets goal is to make it as easy as possible to ship a project with Laravel using Docker, CI/CD, and PHPUnit.
 
-The overall goal is to make it as easy as possible to ship a project with Laravel using Docker, CI/CD, and PHPUnit testing.
+## Features
+
+- `Dockerfile` that uses
+- Setup `.env.testing` for running tests with PHPUnit and Sqlite (in memory)
+- Github Action for Laravel 6 CI/CD to auto run code against code changes
+- PHPCS file to help enforce coding standards
+- Includes a `Makefile` for helpful commands for local development
 
 ### Docker
 
@@ -16,13 +22,13 @@ Taking years of experience shipping PHP applications (both Craft CMS and Laravel
 You can install the package via composer:
 
 ```bash
-composer require --dev jasonmccallister/laravel-preset
+composer require --dev mccallister/laravel-preset
 ```
 
 ## Usage
 
 ```bash
-php artisan preset jasonmccallister
+php artisan preset mccallister
 ```
 
 Follow the prompts on which database to use and what packages to include in the project.
@@ -35,7 +41,7 @@ make up
 
 ### Docker
 
-Running the preset command (`php artisan preset jasonmccallister`) will prompt you on the type of database you are going to use on the project. This will setup the Dockerfile and docker-compose file with the correct database dependencies.
+Running the preset command (`php artisan preset mccallister`) will prompt you on the type of database you are going to use on the project. This will setup the Dockerfile and docker-compose file with the correct database dependencies.
 
 There is a `.dockerignore` that will exclude the `vendor` and `node_modules` from the Docker Build Context. This is included to [improve the build times for Docker](https://docs.docker.com/engine/reference/builder/#dockerignore-file).
 
